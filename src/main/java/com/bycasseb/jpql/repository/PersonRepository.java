@@ -21,7 +21,25 @@ public interface PersonRepository extends CrudRepository<Person, Long> {
     public List<Person> findWithJpqlImplicity(@Param("postcode") String postcode);
 
     @Query(
-            "Select p from Person p join p.address a where a.postcode = :postcode"
+            "Select p from Person p left join p.address a where a.postcode = :postcode"
     )
     public List<Person> findWithJpqlExplicity(@Param("postcode") String postcode);
+
+    @Query(
+            "Select p from Person p " +
+                    "where p.address.postcode = :postcode " +
+                    "and p.homeAddress.postcode = p.businessAddress.postcode"
+    )
+    public List<Person> findWithComplexJpqlImplicity(@Param("postcode") String postcode);
+
+    @Query(
+            "Select p from Person p " +
+                    "left join p.address a " +
+                    "left join p.homeAddress home " +
+                    "left join p.businessAddress business " +
+                    "where a.postcode = :postcode " +
+                    "and home.postcode = business.postcode"
+    )
+    public List<Person> findWithComplexJpqlExplicity(@Param("postcode") String postcode);
+
 }

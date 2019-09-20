@@ -4,8 +4,13 @@ spring:
     generate-ddl: true
     hibernate:
       ddl-auto: update
+    show-sql: true
   datasource:
     url: jdbc:mysql://localhost:3306/demo
     username: user
     password: pass
     driver-class-name: com.mysql.jdbc.Driver
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG

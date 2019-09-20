@@ -31,6 +31,14 @@ public class Person {
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "home_address_id", referencedColumnName = "id")
+    private Address homeAddress;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "business_address_id", referencedColumnName = "id")
+    private Address businessAddress;
+
     public Person(){
 
     }
